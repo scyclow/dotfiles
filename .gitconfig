@@ -1,0 +1,18 @@
+[user]
+  name = scyclow
+  email = spike716@gmail.com
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[filter "media"]
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
+[alias]
+  ci = commit
+  co = checkout
+  s  = status
+  b  = branch
+  d  = diff
+  ds = diff --staged
+  ln = log --name-status
