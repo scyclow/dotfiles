@@ -1,6 +1,10 @@
 [user]
   name = scyclow
   email = spike716@gmail.com
+[pull]
+  rebase = true
+[push]
+  default = upstream
 [color]
   diff = auto
   status = auto
