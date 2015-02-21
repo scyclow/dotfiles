@@ -4,6 +4,30 @@ parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
+# stash, co master, pull, co working branch, rebase, stash pop
+# G(it) R(e)B(ase)
+grb () { 
+  CHANGES=`git stash`
+  OLD_BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+  git checkout master
+  git pull
+  git checkout $OLD_BRANCH
+  git rebase master
+
+  if [[ $? != 0 ]]; then
+    exit 1
+  fi
+
+  if [[ $CHANGES != "No local changes to save" ]]; then
+    git stash pop
+  fi
+}
+
+# mkdir and cd into new dir
+mcdir () {
+  mkdir -p -- "$1" && cd -P -- "$1"
+}
+
 # git autocomplete
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
